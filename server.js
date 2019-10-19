@@ -25,3 +25,10 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+// If deployed, use the deployed Heroku database. Otherwise use my local scraperdb database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraperdb";
+
+mongoose.connect(MONGODB_URI);
+
+
+
