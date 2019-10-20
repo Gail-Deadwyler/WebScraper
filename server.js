@@ -37,13 +37,13 @@ mongoose.connect(MONGODB_URI);
 
 // A GET route for scraping the chicago tribune website
 
-app.get("/", function (req, res) {
+// app.get("/", function (req, res) {
 
-    console.log("JuJu Team");
+//     console.log("JuJu Team");
 
-    //response.send("JuJu Team!!");
+//     //response.send("JuJu Team!!");
 
-});
+// });
 
 // app.get("/", function(req, res) {
 //     res.send("Hello world");
@@ -62,7 +62,7 @@ app.get("/scrape", function (req, res) {
     axios.get("http://www.chicagotribune.com").then(function (res) {
 
         // Load the Response into cheerio and save it to a variable
-        var $ = cheerio.load(response.data);
+        var $ = cheerio.load(res.data);
 
         // With cheerio, find each h2-tag with the "regular-text-mobile.h6" class
         // (i: iterator. element: the current element)
