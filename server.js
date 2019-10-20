@@ -29,7 +29,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // If deployed, use the deployed Heroku database. Otherwise use my local scraperdb database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraperdb";
+//var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraperdb";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://user:mongo123@ds337418.mlab.com:37418/heroku_nzj7wn52";
 
 mongoose.connect(MONGODB_URI);
 
