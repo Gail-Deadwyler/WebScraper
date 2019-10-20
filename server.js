@@ -37,18 +37,6 @@ mongoose.connect(MONGODB_URI);
 
 // A GET route for scraping the chicago tribune website
 
-// app.get("/", function (req, res) {
-
-//     console.log("JuJu Team");
-
-//     //response.send("JuJu Team!!");
-
-// });
-
-// app.get("/", function(req, res) {
-//     res.send("Hello world");
-//   });
-
 app.get("/scrape", function (req, res) {
 
     // First, grab the body of the html with axios
