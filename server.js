@@ -37,7 +37,7 @@ mongoose.connect(MONGODB_URI);
 
 // A GET route for scraping the chicago tribune website
 
-app.get("/", function(request, response) {
+app.get("/", function (request, response) {
 
     console.log("JuJu Team");
 
@@ -64,29 +64,49 @@ app.get("/scrape", function (request, response) {
         // Load the Response into cheerio and save it to a variable
         var $ = cheerio.load(response.data);
 
-        // An empty array to save the data that is scraped
-        var results = [];
-
         // With cheerio, find each h2-tag with the "regular-text-mobile.h6" class
         // (i: iterator. element: the current element)
         $("h2.regular-text-mobile.h6").each(function (i, element) {
 
+            // An empty array to save the data that is scraped
+            var result = {};
+
+            // Add the text and href of every link, and save them as properties of the result object
+            result.title = $(this)
+                .children("a")
+                .text();
+
+            result.link = $(this)
+                .children("a")
+                .attr("href");
+
+            // Create a new Article using the `result` object built from scraping
+            db.Article.create(result)
+                .then(function (dbArticle) {
+                    // View the added result in the console
+                    console.log(dbArticle);
+                })
+                .catch(function (err) {
+                    // If an error occurred, log it
+                    console.log(err);
+                });
+
             // Save the text of the element in a "title" variable
-            var title = $(element).text();
+            //var title = $(element).text();
 
             // In the currently selected element, look at its child elements (i.e., its a-tags),
             // then save the values for any "href" attributes that the child elements may have
-            var link = $(element).children().attr("href");
+            //var link = $(element).children().attr("href");
 
             // Save these results in an object that will be pushed into the results array defined earlier
-            results.push({
-                title: title,
-                link: link
-            });
+            // results.push({
+            //     title: title,
+            //     link: link
+            // });
 
         });
 
-        console.log(results);
+        //console.log(results);
 
     });
 
